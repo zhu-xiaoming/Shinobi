@@ -10,6 +10,14 @@ function toLong(ip) {
     return ipl >>> 0;
 }
 
+function gcd(a,b)
+{
+    if ( ! b) {
+        return a;
+    }
+    return gcd(b, a % b);
+}
+
 module.exports = {
     toLong,
     md5(x) {
@@ -24,10 +32,8 @@ module.exports = {
         return x;
     },
     ratio(width, height, ratio) {
-        ratio = width / height;
-        return Math.abs(ratio - 4 / 3) < Math.abs(ratio - 16 / 9)
-            ? '4:3'
-            : '16:9';
+        var divisor = gcd(height, width);
+        return height/divisor + ':' + width/divisor;
     },
     gid(x) {
         if (!x) {
